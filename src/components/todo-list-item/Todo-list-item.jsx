@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import './todo-list-item.css'
 
 const TodoListItem = ({
+    id,
     label,
     done,
     important,
@@ -19,6 +20,7 @@ const TodoListItem = ({
         <span className="todo-list-item-label"
             onClick={onLabelClick}>
             {label}
+            {id}
         </span>
 
         <button type='button'

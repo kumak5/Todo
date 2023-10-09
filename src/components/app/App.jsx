@@ -18,13 +18,16 @@ const App = () => {
   ]
 
 
+
   const [todoData, setTodoData] = useState(initialTodoData)
+  const [lastId, setLastId] = useState(3)
   const [inputTodo, setInputTodo] = useState('')
 
   const onItemAdded = () => {
+    setLastId(lastId+ 1)
     setTodoData([
       ...todoData,
-      { label: inputTodo, id: todoData.length + 1 },
+      { label: inputTodo, id: lastId+1 },
     ])
   }
 
