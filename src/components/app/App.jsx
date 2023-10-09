@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React from "react";
 import { useState } from "react";
 import AppHeader from "../app-header";
 import SearchPanel from "../search-panel";
@@ -12,20 +12,20 @@ const MyContext = React.createContext();
 const App = () => {
 
   const initialTodoData = [
-    { label: 'Drind Coffe', important: true, id: 1 },
-    { label: 'Make Awesome App', important: false, id: 2 },
-    { label: 'Have a lunch', important: false, id: 3 },
+    { label: 'Drind Coffe', done: false, important: false, id: 1 },
+    { label: 'Make Awesome App', done: false, important: false, id: 2 },
+    { label: 'Have a lunch', done: false, important: false, id: 3 },
   ]
+
+
   const [todoData, setTodoData] = useState(initialTodoData)
   const [inputTodo, setInputTodo] = useState('')
 
   const onItemAdded = () => {
-    console.log(inputTodo);
-    const newTodoData = [
+    setTodoData([
       ...todoData,
-      { label: inputTodo, important: false, id: todoData.length + 1 },
-   ]
-    setTodoData(newTodoData)
+      { label: inputTodo, id: todoData.length + 1 },
+    ])
   }
 
   const onDeleted = (id) => {
@@ -33,27 +33,48 @@ const App = () => {
     setTodoData(newTodoData)
   }
 
+  const onLabelClick = (id) => {
+    const newTododata = todoData.map((el) => {
+      if (el.id === id) { el.done = !el.done}
+      return el
+    })
+    setTodoData(newTododata)
+  }
+
+  const onToggleImportant = (id) => {
+    const newTododata = todoData.map((el) => {
+      if (el.id === id) { el.important = !el.important }
+      return el
+    })
+    setTodoData(newTododata)
+  }
+
   return (
     <div className="todo-app">
       <AppHeader toDo={1} done={3} />
+
       <div className="top-panel d-flex">
         <SearchPanel />
         <ItemStatusFilter />
       </div>
 
-      <TodoList todos={todoData}
-        onDeleted={onDeleted} />
       <input
         type="text"
         className="form-control"
         value={inputTodo}
-        onChange={(e) => setInputTodo(e.target.value)}></input>
+        placeholder="What needs to be done?"
+        onChange={(e) => setInputTodo(e.target.value)} />
 
       <button type='button'
         className="btn btn-outline-secondary btn-sm float-right"
         onClick={onItemAdded}>
         Add Item
       </button>
+      <TodoList todos={todoData}
+        onDeleted={onDeleted}
+        onToggleImportant={onToggleImportant}
+        onLabelClick={onLabelClick}
+      />
     </div>
   );
 }

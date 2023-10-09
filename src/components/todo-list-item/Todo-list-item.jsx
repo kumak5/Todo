@@ -1,26 +1,19 @@
 import React, { useState } from "react";
 import './todo-list-item.css'
 
-const TodoListItem = ({ label, onDeleted }) => {
-    const [done, setDone] = useState(false)
-    const [important, setImportant] = useState(false)
-    const onLabelClick = () => {
-        // console.log(`${label} was clicked`)
-        setDone((prevState) => !prevState)
-    }
-
-    const onMarkImportant = () => {
-        setImportant((prevState) => !prevState)
-    }
+const TodoListItem = ({
+    label,
+    done,
+    important,
+    onDeleted,
+    onToggleImportant,
+    onLabelClick }) => {
 
     let classNames = 'todo-list-item'
-    if (done) {
-        classNames += ' done'
-    }
 
-    if (important) {
-        classNames += ' important'
-    }
+    if (done) { classNames += ' done' }
+
+    if (important) { classNames += ' important' }
 
     return <span className={classNames} >
         <span className="todo-list-item-label"
@@ -30,7 +23,7 @@ const TodoListItem = ({ label, onDeleted }) => {
 
         <button type='button'
             className="btn btn-outline-success btn-sm float-right"
-            onClick={onMarkImportant}
+            onClick={onToggleImportant}
         >
             <i className="fa-solid fa-exclamation"></i>
         </button>
@@ -40,7 +33,7 @@ const TodoListItem = ({ label, onDeleted }) => {
             onClick={onDeleted}>
             <div>X</div>
         </button>
-        
+
     </span>
 
 
