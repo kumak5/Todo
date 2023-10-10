@@ -24,10 +24,10 @@ const App = () => {
   const [inputTodo, setInputTodo] = useState('')
 
   const onItemAdded = () => {
-    setLastId(lastId+ 1)
+    setLastId(lastId + 1)
     setTodoData([
       ...todoData,
-      { label: inputTodo, id: lastId+1 },
+      { label: inputTodo, id: lastId + 1 },
     ])
   }
 
@@ -38,7 +38,7 @@ const App = () => {
 
   const onLabelClick = (id) => {
     const newTododata = todoData.map((el) => {
-      if (el.id === id) { el.done = !el.done}
+      if (el.id === id) { el.done = !el.done }
       return el
     })
     setTodoData(newTododata)
@@ -52,9 +52,13 @@ const App = () => {
     setTodoData(newTododata)
   }
 
+  const doneCount = todoData.filter((el) => el.done).length
+  const todoCount = todoData.filter((el) => !el.done).length
+  console.log(todoCount);
+
   return (
     <div className="todo-app">
-      <AppHeader toDo={1} done={3} />
+      <AppHeader toDo={todoCount} done={doneCount} />
 
       <div className="top-panel d-flex">
         <SearchPanel />
