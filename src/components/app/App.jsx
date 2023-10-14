@@ -7,8 +7,6 @@ import ItemStatusFilter from "../item-status-filter";
 import "./App.css";
 
 
-const MyContext = React.createContext();
-
 const App = () => {
 
   const initialTodoData = [
@@ -22,12 +20,15 @@ const App = () => {
   const [todoData, setTodoData] = useState(initialTodoData)
   const [lastId, setLastId] = useState(3)
   const [inputTodo, setInputTodo] = useState('')
+  const [filterInput, setFilterInput] = useState('')
+  const [itemStatusFilterId, setItemStatusFilterId] = useState(1)
 
   const onItemAdded = () => {
     setLastId(lastId + 1)
+    console.log(todoData.label);
     setTodoData([
       ...todoData,
-      { label: inputTodo, id: lastId + 1 },
+      { label: inputTodo, id: lastId + 1 }
     ])
     setInputTodo('')
   }
@@ -56,13 +57,17 @@ const App = () => {
   const doneCount = todoData.filter((el) => el.done).length
   const todoCount = todoData.filter((el) => !el.done).length
 
+
+
   return (
     <div className="todo-app">
       <AppHeader toDo={todoCount} done={doneCount} />
 
       <div className="top-panel d-flex">
-        <SearchPanel />
-        <ItemStatusFilter />
+        <SearchPanel setFilterInput={setFilterInput} />
+        <ItemStatusFilter 
+        itemStatusFilterId={itemStatusFilterId}
+        setItemStatusFilterId={setItemStatusFilterId}/>
       </div>
 
       <input
@@ -85,6 +90,7 @@ const App = () => {
         Add Item
       </button>
       <TodoList
+        filterInput={filterInput}
         todos={todoData}
         onDeleted={onDeleted}
         onToggleImportant={onToggleImportant}

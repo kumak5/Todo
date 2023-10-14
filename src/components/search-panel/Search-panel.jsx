@@ -1,11 +1,14 @@
 import React from 'react'
 
-const SearchPanel = () => {
+const SearchPanel = ({setFilterInput}) => {
 
-    const searchText = 'Type here to search'
+     
+
     return (
-    <input placeholder={searchText} />
-    )
+        <input placeholder={'Search'} 
+        onChange={(e) => setFilterInput(e.target.value)}
+        />
+        )
 }
 
 export default SearchPanel

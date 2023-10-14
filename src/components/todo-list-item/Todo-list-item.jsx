@@ -19,8 +19,8 @@ const TodoListItem = ({
     return <span className={classNames} >
         <span className="todo-list-item-label"
             onClick={onLabelClick}>
+            {id+'. '}
             {label}
-            {id}
         </span>
 
         <button type='button'
