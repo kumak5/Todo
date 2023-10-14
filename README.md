@@ -40,8 +40,8 @@
    npm run dev
 
    
-![Alt text](image.png)
-![Alt text](image-1.png)   
+![Alt text](/src/img/image.png)
+![Alt text](/src/img/image-1.png)   
 
 ## Зависимости
 

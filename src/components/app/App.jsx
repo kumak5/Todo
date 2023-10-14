@@ -29,6 +29,7 @@ const App = () => {
       ...todoData,
       { label: inputTodo, id: lastId + 1 },
     ])
+    setInputTodo('')
   }
 
   const onDeleted = (id) => {
@@ -54,7 +55,6 @@ const App = () => {
 
   const doneCount = todoData.filter((el) => el.done).length
   const todoCount = todoData.filter((el) => !el.done).length
-  console.log(todoCount);
 
   return (
     <div className="todo-app">
@@ -70,18 +70,25 @@ const App = () => {
         className="form-control"
         value={inputTodo}
         placeholder="What needs to be done?"
-        onChange={(e) => setInputTodo(e.target.value)} />
+        onChange={(e) => setInputTodo(e.target.value)}
+        onKeyPress={(e) => {
+          if (e.key === 'Enter') {
+            onItemAdded()
+          }
+        }}
+      />
 
-      <button type='button'
+      <button
+        type='button'
         className="btn btn-outline-secondary btn-sm float-right"
         onClick={onItemAdded}>
         Add Item
       </button>
-      <TodoList todos={todoData}
+      <TodoList
+        todos={todoData}
         onDeleted={onDeleted}
         onToggleImportant={onToggleImportant}
-        onLabelClick={onLabelClick}
-      />
+        onLabelClick={onLabelClick} />
     </div>
   );
 }
