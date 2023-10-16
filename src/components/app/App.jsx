@@ -16,12 +16,11 @@ const App = () => {
   ]
 
 
-
   const [todoData, setTodoData] = useState(initialTodoData)
   const [lastId, setLastId] = useState(3)
   const [inputTodo, setInputTodo] = useState('')
   const [filterInput, setFilterInput] = useState('')
-  const [itemStatusFilterId, setItemStatusFilterId] = useState(1)
+  const [itemStatusFilterId, setItemStatusFilterId] = useState(0)
 
   const onItemAdded = () => {
     setLastId(lastId + 1)
@@ -90,6 +89,7 @@ const App = () => {
         Add Item
       </button>
       <TodoList
+      itemStatusFilterId={itemStatusFilterId}
         filterInput={filterInput}
         todos={todoData}
         onDeleted={onDeleted}
